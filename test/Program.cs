@@ -5,21 +5,28 @@ namespace test
 
     class Program
     {
+        public const double CTF = 32.0;
+        public const double NBF = 9.0/5;
+        public const double FBN = 5.0/9;
+        public const double K0 = 273.15;
+        public const double RC = 491.67;
+
+      
         public static double CelsjusToFarenhait(double temp)
         {                       
-            return (temp * 9/5) + 32;
+            return (temp * NBF) + CTF;
         }
         public static double CelsjusToKelvin(double temp)
         {
-            return temp + 273.15;            
+            return temp + K0;            
         }
         public static double CelsjusToRankine(double temp)
         { 
-            return (temp * 9/5) + 491.67;
+            return (temp * NBF) + RC;
         }
         public static double FarenhaitToCelsjus(double temp)
         {
-            return (temp - 32) * 5/9;
+            return (temp - CTF) * FBN;
         }
         public static double FarenhaitToKelvin(double temp)
         {
@@ -31,7 +38,7 @@ namespace test
         }
         public static double KelvinToCelsjus(double temp)
         {
-            return temp - 273.15;
+            return temp - K0;
         }
         public static double KelvinToFarenhait(double temp)
         {
@@ -43,7 +50,7 @@ namespace test
         }
         public static double RankineToCelsjus(double temp)
         {
-            return (temp - 491.67) * 5/9;
+            return (temp - RC) * FBN;
         }
         public static double RankineToFarenhait(double temp)
         {
@@ -53,11 +60,82 @@ namespace test
         {
             return CelsjusToKelvin(RankineToCelsjus(temp));
         }
+
+
         static void Main(string[] args)
         {
-            double tem;
-            tem = FarenhaitToCelsjus(10);            
-            Console.WriteLine("wynik "+tem);
+            Char TemperatureImputType = 'C';
+            Double TemperatureImputValue = 0;
+            do
+            {
+                Console.WriteLine("wybierz jednostek temperatury : \n" +
+                    "C - Celsjus \n" +
+                    "F - Farenhait \n" +
+                    "K - Kelvin \n" +
+                    "R - Ten co pierwsze slysze XD \n:"
+                    );
+
+                TemperatureImputType = Console.ReadLine()[0];
+
+            } while (   TemperatureImputType != 'C' && 
+                        TemperatureImputType != 'F' &&
+                        TemperatureImputType != 'K' &&
+                        TemperatureImputType != 'R' && 
+                        TemperatureImputType != 'c' &&                        
+                        TemperatureImputType != 'f' &&                       
+                        TemperatureImputType != 'k' &&                       
+                        TemperatureImputType != 'r'
+                        );
+            Console.WriteLine("Podaj wartosc temperatury :\n" + TemperatureImputType + " :");
+            TemperatureImputValue = Double.Parse(Console.ReadLine());
+
+            switch (TemperatureImputType)
+            {
+                case 'c':
+                case 'C':
+                    {
+                        Console.WriteLine(
+                            "Temperatura wynosi :" +
+                            "\nF : " + CelsjusToFarenhait(TemperatureImputValue) +
+                            "\nK : " + CelsjusToKelvin(TemperatureImputValue) +
+                            "\nR : " + CelsjusToRankine(TemperatureImputValue)
+                            );
+                        break;
+                    }
+                case 'f':
+                case 'F':
+                    {
+                        Console.WriteLine(
+                            "Temperatura wynosi :" +
+                            "\nC : " + FarenhaitToCelsjus(TemperatureImputValue) +
+                            "\nK : " + FarenhaitToKelvin(TemperatureImputValue) +
+                            "\nR : " + FarenhaitToRankine(TemperatureImputValue)
+                            );
+                        break;
+                    }
+                case 'k':
+                case 'K':
+                    {
+                        Console.WriteLine(
+                            "Temperatura wynosi :" +
+                            "\nC : " + KelvinToCelsjus(TemperatureImputValue) +
+                            "\nF : " + KelvinToFarenhait(TemperatureImputValue) +
+                            "\nR : " + KelvinToRankine(TemperatureImputValue)
+                            );
+                        break;
+                    }
+                case 'r':
+                case 'R':
+                    {
+                        Console.WriteLine(
+                            "Temperatura wynosi :" +
+                            "\nC : " + RankineToCelsjus(TemperatureImputValue) +
+                            "\nF : " + RankineToFarenhait(TemperatureImputValue) +
+                            "\nK : " + RankineToKelvin(TemperatureImputValue)
+                            );
+                        break;
+                    }
+            }
         }
     }
 }
